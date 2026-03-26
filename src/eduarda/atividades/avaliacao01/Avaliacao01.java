@@ -1,12 +1,12 @@
 package eduarda.atividades.avaliacao01;
 
 public class Avaliacao01 {
-    public static void main() {
+     static void main() {
         int tamanhoVet = 5000;
 
-        int vetAleatorio[] = new int[tamanhoVet];
-        int vetMelhorCaso[] = new int[tamanhoVet];
-        int vetPiorCaso[] = new int[tamanhoVet];
+        int[] vetAleatorio = new int[tamanhoVet];
+        int[] vetMelhorCaso = new int[tamanhoVet];
+        int[] vetPiorCaso = new int[tamanhoVet];
 
         preencherVetor(vetAleatorio, tamanhoVet, 0);
         preencherVetor(vetMelhorCaso, tamanhoVet, 1);
@@ -65,11 +65,11 @@ public class Avaliacao01 {
 
     private static void bubbleSort(int[] vet, int tamVet, String caso) {
         long inicio, fim, tempoS, tempoMS;
-        int vetor[] = vet.clone();
+        int[] vetor = vet.clone();
         inicio = System.currentTimeMillis();
 
-        int aux = 0;
-        int i = 0;
+        int aux;
+        int i;
         for(i = 0; i< tamVet-1; i++) {
             for (int j = 0; j < tamVet -1 -i; j++) {
                 if (vetor[j] > vetor[j + 1]) {
@@ -89,7 +89,7 @@ public class Avaliacao01 {
 
     private static void selectionSort(int[] vet, int tamVet, String caso) {
         long inicio, fim, tempoS, tempoMS;
-        int vetor[] = vet.clone();
+        int[] vetor = vet.clone();
         inicio = System.currentTimeMillis();
 
         for (int i = 0; i < tamVet - 1; i++) {
@@ -117,7 +117,7 @@ public class Avaliacao01 {
 
     private static void insertionSort(int[] vet, int tamVet, String caso) {
         long inicio, fim, tempoS, tempoMS;
-        int vetor[] = vet.clone();
+        int[] vetor = vet.clone();
         inicio = System.currentTimeMillis();
 
         for (int i = 1; i < tamVet; i++) {
@@ -139,7 +139,7 @@ public class Avaliacao01 {
 
     private static void mergeSortImpl(int[] vet, int tamVet, String caso) {
         long inicio, fim, tempoS, tempoMS;
-        int vetor[] = vet.clone();
+        int[] vetor = vet.clone();
         inicio = System.currentTimeMillis();
 
         mergeSort(vetor, tamVet);
@@ -192,7 +192,7 @@ public class Avaliacao01 {
 
     private static void heapSort(int[] vet, int tamVet, String caso) {
         long inicio, fim, tempoS, tempoMS;
-        int vetor[] = vet.clone();
+        int[] vetor = vet.clone();
         inicio = System.currentTimeMillis();
 
         for (int i = tamVet / 2 - 1; i >= 0; i--) {
@@ -246,7 +246,7 @@ public class Avaliacao01 {
 
     private static void countingSort(int[] vet, int tamVet, String caso) {
         long inicio, fim, tempoS, tempoMS;
-        int vetor[] = vet.clone();
+        int[] vetor = vet.clone();
         inicio = System.currentTimeMillis();
 
         int maior = vet[0];
@@ -284,7 +284,7 @@ public class Avaliacao01 {
     }
     private static void quickSortImpl(int[] vet, int tamVet, String caso) {
         long inicio, fim, tempoS, tempoMS;
-        int vetor[] = vet.clone();
+        int[] vetor = vet.clone();
         inicio = System.currentTimeMillis();
 
 
@@ -297,7 +297,7 @@ public class Avaliacao01 {
         System.out.println("Tempo de ordenacao(melhorado) " + caso + ": " + tempoS + "s" + tempoMS + "ms");
         //exibirVetor(vetor, tamVet);
     }
-    static void quickSort(int arr[], int begin, int end) {
+    static void quickSort(int[] arr, int begin, int end) {
         if (begin < end) {
             int partitionIndex = partition(arr, begin, end);
 
@@ -306,7 +306,7 @@ public class Avaliacao01 {
         }
     }
 
-    static int partition(int arr[], int begin, int end) {
+    static int partition(int[] arr, int begin, int end) {
         int pivot = arr[end];
         int i = (begin-1);
 
@@ -327,7 +327,7 @@ public class Avaliacao01 {
         return i+1;
     }
 
-    static void preencherVetor(int vet[], int N, int s) {
+    static void preencherVetor(int[] vet, int N, int s) {
         switch(s){
             case 0:
                 for (int i = 0; i < N; i++)
@@ -344,7 +344,7 @@ public class Avaliacao01 {
         }
     }
 
-    private static void exibirVetor(int[] vet, int N) {
+     static void exibirVetor(int[] vet, int N) {
         for (int i = 0; i < N; i++) {
             if (vet[i] < 10) {
                 System.out.print("0" + vet[i] + " ");
@@ -352,7 +352,7 @@ public class Avaliacao01 {
                 System.out.print(vet[i] + " ");
             }
         }
-        System.out.println("");
+        System.out.println();
     }
 
 }
