@@ -3,7 +3,7 @@ package eduarda.atividades.avaliacao01;
 public class Avaliacao01 {
 
     static void main() {
-        int tamanhoVet = 10000;
+        int tamanhoVet = 30000;
 
         int[] vetAleatorio = new int[tamanhoVet];
         int[] vetMelhorCaso = new int[tamanhoVet];
@@ -14,44 +14,44 @@ public class Avaliacao01 {
         preencherVetor(vetPiorCaso, tamanhoVet, 2);
 
         System.out.println("=== Bubble Sort ===");
-        bubbleSort(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         bubbleSort(vetMelhorCaso.clone(), tamanhoVet, "Melhor Caso");
+        bubbleSort(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         bubbleSort(vetPiorCaso.clone(), tamanhoVet, "Pior Caso");
 
         System.out.println();
         System.out.println("=== Selection Sort ===");
-        selectionSort(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         selectionSort(vetMelhorCaso.clone(), tamanhoVet, "Melhor Caso");
+        selectionSort(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         selectionSort(vetPiorCaso.clone(), tamanhoVet, "Pior Caso");
 
         System.out.println();
         System.out.println("=== Insertion Sort ===");
-        insertionSort(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         insertionSort(vetMelhorCaso.clone(), tamanhoVet, "Melhor Caso");
+        insertionSort(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         insertionSort(vetPiorCaso.clone(), tamanhoVet, "Pior Caso");
 
         System.out.println();
         System.out.println("=== Merge Sort ===");
-        mergeSortImpl(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         mergeSortImpl(vetMelhorCaso.clone(), tamanhoVet, "Melhor Caso");
+        mergeSortImpl(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         mergeSortImpl(vetPiorCaso.clone(), tamanhoVet, "Pior Caso");
 
         System.out.println();
         System.out.println("=== Heap Sort ===");
-        heapSort(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         heapSort(vetMelhorCaso.clone(), tamanhoVet, "Melhor Caso");
+        heapSort(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         heapSort(vetPiorCaso.clone(), tamanhoVet, "Pior Caso");
 
         System.out.println();
         System.out.println("=== Counting Sort ===");
-        countingSort(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         countingSort(vetMelhorCaso.clone(), tamanhoVet, "Melhor Caso");
+        countingSort(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         countingSort(vetPiorCaso.clone(), tamanhoVet, "Pior Caso");
 
         System.out.println();
         System.out.println("=== Quick Sort ===");
-        quickSortImpl(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         quickSortImpl(vetMelhorCaso.clone(), tamanhoVet, "Melhor Caso");
+        quickSortImpl(vetAleatorio.clone(), tamanhoVet, "Aleatorio");
         quickSortImpl(vetPiorCaso.clone(), tamanhoVet, "Pior Caso");
 
         System.out.println();
@@ -231,15 +231,37 @@ public class Avaliacao01 {
     }
 
     static void quickSort(int[] arr, int begin, int end) {
-        if (begin < end) {
-            int partitionIndex = partition(arr, begin, end);
-            quickSort(arr, begin, partitionIndex - 1);
-            quickSort(arr, partitionIndex + 1, end);
+        while (begin < end) {
+            int p = partition(arr, begin, end);
+            if (p - begin < end - p) {
+                quickSort(arr, begin, p - 1);
+                begin = p + 1;
+            } else {
+                quickSort(arr, p + 1, end);
+                end = p - 1;
+            }
         }
     }
 
+    static int medianOfThree(int[] arr, int begin, int end) {
+        int mid = begin + (end - begin) / 2;
+
+        if (arr[begin] > arr[mid]) {
+            int tmp = arr[begin]; arr[begin] = arr[mid]; arr[mid] = tmp;
+        }
+        if (arr[begin] > arr[end]) {
+            int tmp = arr[begin]; arr[begin] = arr[end]; arr[end] = tmp;
+        }
+        if (arr[mid] > arr[end]) {
+            int tmp = arr[mid]; arr[mid] = arr[end]; arr[end] = tmp;
+        }
+
+        int tmp = arr[mid]; arr[mid] = arr[end]; arr[end] = tmp;
+        return arr[end];
+    }
+
     static int partition(int[] arr, int begin, int end) {
-        int pivot = arr[end];
+        int pivot = medianOfThree(arr, begin, end);
         int i = begin - 1;
 
         for (int j = begin; j < end; j++) {
