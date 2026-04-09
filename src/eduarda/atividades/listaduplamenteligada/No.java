@@ -1,14 +1,14 @@
-package murillo.primos;
+package eduarda.atividades.listaduplamenteligada;
 
 public class No {
-     int valor;
-     No prox;
-
+    private int valor;
+    private No prox;
+    private No ant;
 
     public No(int valor) {
         this.valor = valor;
         this.prox = null;
-
+        this.ant = null;
     }
 
     public int getValor() {
@@ -27,5 +27,11 @@ public class No {
         this.prox = prox;
     }
 
+    public No getAnt() {
+        return ant;
+    }
 
+    public void setAnt(No ant) {
+        this.ant = ant;
+    }
 }

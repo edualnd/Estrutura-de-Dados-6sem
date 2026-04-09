@@ -1,5 +1,6 @@
 package eduarda.atividades.listaligada;
 
+
 import java.util.Scanner;
 
 public class TesteListaLigada {
@@ -80,8 +81,6 @@ public class TesteListaLigada {
                 ultimo.setProximo(inserirNo);
 
             }
-
-
         }
     }
 

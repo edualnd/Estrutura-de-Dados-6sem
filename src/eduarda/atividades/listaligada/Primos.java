@@ -1,5 +1,6 @@
 package eduarda.atividades.listaligada;
 
+
 import java.util.Scanner;
 
 public class Primos {

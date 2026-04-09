@@ -1,5 +1,6 @@
 package eduarda.atividades.listaligada.circular;
 
+
 import eduarda.atividades.listaligada.No;
 
 public class Josephus {
