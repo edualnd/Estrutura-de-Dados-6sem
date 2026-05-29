@@ -102,14 +102,10 @@ public class ArvBinaria {
     }
 
     public static void acharERemover(char n, int x){
-        NoP no = acharNo(n, x, raiz);
+       // NoP no = acharNo(n, x, raiz);
 
 
-        while(no != null){
 
-
-            no = acharNo(n,x,raiz);
-        }
     }
     public static void removeNo(NoP no){
 
@@ -120,7 +116,7 @@ public class ArvBinaria {
             switch(f){
                 case  0: removeFolha(no); break;
                 case  1: removeUmFilho(no); break;
-                case  2: removeDoisFilhos(n); break;
+                //case  2: removeDoisFilhos(n); break;
             }
         }
 
