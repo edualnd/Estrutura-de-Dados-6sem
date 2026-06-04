@@ -8,32 +8,29 @@ import static eduarda.atividades.bimestre2.arvorebinaria.avl.SobreArvore.*;
 public class Main {
     static NoAVL raiz = null;
     static void main() {
-        inserirTeste();
+        //inserirTeste();
+        inserirExclusivo(10);
+        inserirExclusivo(20);
+        inserirExclusivo(30);
+        inserirExclusivo(40);
+        inserirExclusivo(50);
+        inserirExclusivo(60);
+        inserirExclusivo(70);
+        inserirExclusivo(80);
+        inserirExclusivo(90);
+        inserirExclusivo(100);
+        exibeArvore(raiz, 0);
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        raiz = balancear(raiz);
 
 
-        System.out.println("Quantos elementos: " + tamanho(raiz));
-        System.out.println("Profundidade: " + profundidade(raiz));
-        System.out.println("Profundidade esq: " + profundidade(raiz.esq));
-        System.out.println("Profundidade dir: " + profundidade(raiz.dir));
 
-        System.out.println(raiz.valor);
-        raiz = rodarEsq(raiz);
-        System.out.println(raiz.valor);
-        raiz = rodarEsq(raiz);
-        System.out.println(raiz.valor);
-        System.out.println("Profundidade pós duas roatações a esquerda");
-        System.out.println("Quantos elementos: " + tamanho(raiz));
-        System.out.println("Profundidade esq: " + profundidade(raiz.esq));
-        System.out.println("Profundidade dir: " + profundidade(raiz.dir));
-
-        remover357(raiz);
+        exibeArvore(raiz, 0);
 
 
-        System.out.println("Profundidade pós remoção de multiplos de 3, 5 e 7 ");
-        System.out.println("Quantos elementos: " + tamanho(raiz));
-        System.out.println("Profundidade: " + profundidade(raiz));
-        System.out.println("Profundidade esq: " + profundidade(raiz.esq));
-        System.out.println("Profundidade dir: " + profundidade(raiz.dir));
         //exibir(raiz);
 
     }
@@ -44,17 +41,17 @@ public class Main {
         for (int i = 1; i < 1001; i++) {
             if (i % 3 == 0 || i % 5 == 0 || i % 7 == 0) {
 
-                NoAVL removerNO = acharNo(i, raiz);
-                if (removerNO != null) {
-                    //System.out.println("Removido: " + removerNO.valor);
-                    remover(i);
-                    count += 1;
-                }
-                else if (i == raiz.valor) {
-                    //System.out.println("Removido: " + raiz.valor);
-                    remover(i);
-                    count += 1;
-                }
+                //NoAVL removerNO = acharNo(i);
+//                if (removerNO != null) {
+//                    //System.out.println("Removido: " + removerNO.valor);
+//                    remover(i);
+//                    count += 1;
+//                }
+//                else if (i == raiz.valor) {
+//                    //System.out.println("Removido: " + raiz.valor);
+//                    remover(i);
+//                    count += 1;
+//                }
 
             }
         }
@@ -170,56 +167,60 @@ public class Main {
     private static void removeDoisFilhos(NoAVL n, int x) {
         if (n != null){
             if (n.valor == x){
-                int maisAEsquerda = maiorDaEsquerda(n.dir).valor;
+                int maisAEsquerda = maisDaEsquerda(n.dir).valor;
                 removeNo(n,maisAEsquerda);
                 n.valor = maisAEsquerda;
             }else{
-                if (n.valor > x)  removeDoisFilhos(n.dir,x);
+                if (n.valor < x)  removeDoisFilhos(n.dir,x);
                 else removeDoisFilhos(n.esq,x);
             }
         }
 
     }
 
-    static NoAVL maiorDaEsquerda(NoAVL temp){
-        if (temp.esq == null) return temp;
-        else return maiorDaEsquerda(temp.esq);
-    }
+
     private static void removeUmFilho(NoAVL n, int x) {
-        if (n.esq != null){
+        if (n!=null && n.esq != null){
             if (n.esq.valor == x){
                 if (n.esq.esq != null) n.esq = n.esq.esq;
                 else n.esq = n.esq.dir;
             }
             else {
                 if (n.valor > x) removeUmFilho(n.esq, x);
+                else removeUmFilho(n.dir, x);
             }
         }
-        if (n.dir != null){
+        if (n!=null && n.dir != null){
             if (n.dir.valor == x) {
                 if (n.dir.esq != null) n.dir = n.dir.esq;
                 else n.dir = n.dir.dir;
             }
             else {
                 if (n.valor < x) removeUmFilho(n.dir, x);
+                else removeUmFilho(n.esq, x);
             }
         }
     }
     private static void removeFolha(NoAVL n, int x) {
-        if (n.esq != null){
+        if (n!=null && n.esq != null){
             if (n.esq.valor == x) n.esq = null;
             else {
                 if (n.valor > x) removeFolha(n.esq, x);
+                else removeFolha(n.dir, x);
             }
         }
-        if (n.dir != null){
+        if (n!=null && n.dir != null){
             if (n.dir.valor == x) n.dir = null;
             else {
                 if (n.valor < x) removeFolha(n.dir, x);
+                else removeFolha(n.esq, x);
             }
         }
     }
-
+    static NoAVL maisDaEsquerda(NoAVL temp){
+        if (temp.esq == null) return temp;
+        else return maisDaEsquerda(temp.esq);
+    }
     private static void inserirTeste() {
         inserirExclusivo( 30 );
         inserirExclusivo( 124 );
@@ -3221,6 +3222,30 @@ public class Main {
         inserirExclusivo( 1000 );
         inserirExclusivo( 216 );
         inserirExclusivo( 586 );
+
+        System.out.println("Quantos elementos: " + tamanho(raiz));
+        System.out.println("Profundidade: " + profundidade(raiz));
+        System.out.println("Profundidade esq: " + profundidade(raiz.esq));
+        System.out.println("Profundidade dir: " + profundidade(raiz.dir));
+
+        System.out.println(raiz.valor);
+        raiz = girarEsq(raiz);
+        System.out.println(raiz.valor);
+        raiz = girarEsq(raiz);
+        System.out.println(raiz.valor);
+        System.out.println("Profundidade pós duas roatações a esquerda");
+        System.out.println("Quantos elementos: " + tamanho(raiz));
+        System.out.println("Profundidade esq: " + profundidade(raiz.esq));
+        System.out.println("Profundidade dir: " + profundidade(raiz.dir));
+
+        remover357(raiz);
+
+
+        System.out.println("Profundidade pós remoção de multiplos de 3, 5 e 7 ");
+        System.out.println("Quantos elementos: " + tamanho(raiz));
+        System.out.println("Profundidade: " + profundidade(raiz));
+        System.out.println("Profundidade esq: " + profundidade(raiz.esq));
+        System.out.println("Profundidade dir: " + profundidade(raiz.dir));
     }
 
 }

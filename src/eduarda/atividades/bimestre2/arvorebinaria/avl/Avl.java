@@ -1,5 +1,6 @@
 package eduarda.atividades.bimestre2.arvorebinaria.avl;
 
+import static eduarda.atividades.bimestre2.arvorebinaria.avl.Main.exibeArvore;
 import static eduarda.atividades.bimestre2.arvorebinaria.avl.Main.raiz;
 import static eduarda.atividades.bimestre2.arvorebinaria.avl.SobreArvore.profundidade;
 
@@ -28,70 +29,74 @@ public class Avl {
         return true;
     }
 
-    public static void rodar(int valor, int direcao){
-        if (raiz.valor == valor){
-            switch (direcao){
-                case 1:
-                    raiz = rodarDir(raiz);
-                    break;
-                case -1:
-                    raiz = rodarEsq(raiz);
-                    break;
-                default: System.out.println("Direção invalida"); break;
-            }
-        }
-        else {
-            switch (direcao){
-                case 1: {
-                    NoAVL avo = acharNo(valor, raiz);
-                    if (avo.dir != null && avo.dir.valor == valor) {
-                        avo.dir = rodarDir(avo.dir);
-                    } else {
-                        avo.esq = rodarDir(avo.esq);
-                    }
-                } break;
-                case -1 : {
-                    NoAVL avo = acharNo(valor, raiz);
-                    if (avo.dir != null && avo.dir.valor == valor) {
-                        avo.dir = rodarEsq(avo.dir);
-                    } else {
-                        avo.esq = rodarEsq(avo.esq);
-                    }
-                } break;
-                default: System.out.println("Direção invalida"); break;
-            }
-        }
-    }
+    public static NoAVL acharNo(int valor){
+        NoAVL temp = raiz;
 
-    public static NoAVL acharNo(int valor, NoAVL temp){
-        if(temp != null){
-
-            if (temp.valor < valor) {
-                if (temp.dir != null && temp.dir.valor == valor) return temp;
-                return acharNo(valor, temp.dir);
-            }
-            else {
-                if (temp.esq != null && temp.esq.valor == valor) return temp;
-                return acharNo(valor, temp.esq);
+        while (temp != null){
+            if (temp.dir != null && temp.dir.valor == valor) return temp;
+            else if (temp.esq != null && temp.esq.valor == valor) return temp;
+            else if (temp.valor < valor) {
+               temp = temp.dir;
+            }else {
+                temp = temp.esq;
             }
         }
         return null;
-
-
     }
 
-    public static NoAVL rodarEsq(NoAVL temp) {
+    public static NoAVL girarEsq(NoAVL temp) {
         NoAVL filho = temp.dir;
         temp.dir = filho.esq;
         filho.esq = temp;
         return filho;
     }
 
-    public static NoAVL rodarDir(NoAVL temp) {
+    public static NoAVL girarDir(NoAVL temp) {
         NoAVL filho = temp.esq;
         temp.esq = filho.dir;
         filho.dir = temp;
         return filho;
     }
+
+    public static NoAVL duplaGirarEsq(NoAVL temp) {
+        temp.dir = girarDir(temp.dir);
+        temp = girarEsq(temp);
+        return temp;
+    }
+
+    public static NoAVL duplaGirarDir(NoAVL temp) {
+
+        temp.esq = girarEsq(temp.esq);
+        temp = girarDir(temp);
+        return temp;
+    }
+    public static NoAVL balancear(NoAVL temp){
+
+        if (temp == null) return null;
+
+        temp.esq = balancear(temp.esq);
+        temp.dir = balancear(temp.dir);
+        int fb = fatorBalanceamento(temp);
+
+        System.out.println(fb + "  " + temp.valor);
+        if (fb <= -2){ // esquerda
+            if(fatorBalanceamento(temp.dir) > 0){ //duas operações
+                temp = duplaGirarEsq(temp);
+            }else{
+                temp = girarEsq(temp);
+
+            }
+        }
+        if(fb >= 2){ //direita
+            if(fatorBalanceamento(temp.esq) < 0){ //duas operações
+                temp = duplaGirarDir(temp);
+            }else{
+                temp = girarDir(temp);
+            }
+        }
+
+        return temp;
+    }
+
 
 }
