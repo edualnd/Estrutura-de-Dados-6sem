@@ -1,6 +1,10 @@
 package eduarda.atividades.bimestre2.arvorebinaria.avl;
 
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.function.IntConsumer;
 
 import static eduarda.atividades.bimestre2.arvorebinaria.avl.Avl.*;
 import static eduarda.atividades.bimestre2.arvorebinaria.avl.SobreArvore.*;
@@ -9,32 +13,29 @@ public class Main {
     static NoAVL raiz = null;
     static void main() {
         //inserirTeste();
-        inserirExclusivo(10);
-        inserirExclusivo(20);
-        inserirExclusivo(30);
-        inserirExclusivo(40);
-        inserirExclusivo(50);
-        inserirExclusivo(60);
-        inserirExclusivo(70);
-        inserirExclusivo(80);
-        inserirExclusivo(90);
-        inserirExclusivo(100);
-        exibeArvore(raiz, 0);
-        System.out.println();
-        System.out.println();
-        System.out.println();
 
-        raiz = balancear(raiz);
+        lerArquivo("src/eduarda/atividades/bimestre2/arvorebinaria/avl/numeros");
 
 
-
-        exibeArvore(raiz, 0);
+        exibir(raiz);
 
 
         //exibir(raiz);
 
     }
+    public static void lerArquivo(String caminho) {
+        try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
+            String linha;
 
+            while ((linha = br.readLine()) != null) {
+                int numero = Integer.parseInt(linha.trim());
+                inserirExclusivo(numero);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private static void remover357(NoAVL raiz) {
         int count = 0;
